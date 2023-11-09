@@ -40,8 +40,10 @@ func main() {
 	chViaCEP := make(chan string)
 	chAPICEP := make(chan string)
 
-	urlViaCEP := fmt.Sprintf("https://viacep.com.br/ws/%d/json/", 88514670)
-	urlAPICEP := fmt.Sprintf("https://viacep.com.br/ws/%d/json/", 88514670)
+	cep := 88514670
+
+	urlViaCEP := fmt.Sprintf("https://viacep.com.br/ws/%d/json/", cep)
+	urlAPICEP := fmt.Sprintf("https://cdn.apicep.com/file/apicep/%d.json", cep)
 
 	go GetCEP(ctx, chViaCEP, urlViaCEP)
 	go GetCEP(ctx, chAPICEP, urlAPICEP)
