@@ -28,9 +28,9 @@ type APICEP struct {
 	City       string `json:"city"`
 	District   string `json:"district"`
 	Address    string `json:"address"`
+	StatusText string `json:"statusText"`
 	Status     int    `json:"status"`
 	Ok         bool   `json:"ok"`
-	StatusText string `json:"statusText"`
 }
 
 func main() {
