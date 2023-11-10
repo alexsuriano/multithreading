@@ -40,19 +40,19 @@ func main() {
 	chViaCEP := make(chan string)
 	chAPICEP := make(chan string)
 
-	cep := 88514670
+	cep := "17030-025"
 
-	urlViaCEP := fmt.Sprintf("https://viacep.com.br/ws/%d/json/", cep)
-	urlAPICEP := fmt.Sprintf("https://cdn.apicep.com/file/apicep/%d.json", cep)
+	urlViaCEP := fmt.Sprintf("https://viacep.com.br/ws/%s/json/", cep)
+	urlAPICEP := fmt.Sprintf("https://cdn.apicep.com/file/apicep/%s.json", cep)
 
 	go GetCEP(ctx, chViaCEP, urlViaCEP)
 	go GetCEP(ctx, chAPICEP, urlAPICEP)
 
 	select {
 	case data := <-chViaCEP:
-		fmt.Printf("Dados de ViaCEP: %v\n", data)
+		fmt.Printf("Dados de ViaCEP:\n%v\n", data)
 	case data := <-chAPICEP:
-		fmt.Printf("Dados de APICEP: %v\n", data)
+		fmt.Printf("Dados de APICEP:\n%v\n", data)
 	case <-time.After(1 * time.Second):
 		cancel()
 		fmt.Println("Timeout")
@@ -67,7 +67,6 @@ func GetCEP(ctx context.Context, ch chan string, url string) {
 
 	default:
 		req, err := http.NewRequestWithContext(ctx, "GET", url, nil)
-
 		if err != nil {
 			log.Println(err)
 			return
